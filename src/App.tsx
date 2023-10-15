@@ -1,54 +1,37 @@
-import logo from "./logo.svg"
-import { Counter } from "./features/counter/Counter"
 import "./App.css"
+import { useEffect } from "react"
+import { tasksIsLoading } from "./app/tasksSlice"
+import { useAppDispatch, useAppSelector } from "./app/hooks"
+import TaskList from "./components/TaskList"
+import { TaskForm } from "./components/TaskForm"
+import Spinner from "./components/Spinner"
+import { makeServer } from "./mockServer"
+import { fetchTasks } from "./service/TaskService"
 
 function App() {
+  const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(tasksIsLoading)
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      makeServer({ environment: "development" })
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchTasks(dispatch)
+  }, [dispatch])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <TaskForm /> <TaskList />
+          </>
+        )}
       </header>
     </div>
   )
