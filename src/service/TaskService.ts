@@ -29,27 +29,35 @@ export const callCreateTask = (
   dispatch: Dispatch,
   request: CreateTaskRequest,
 ) => {
+  dispatch(setLoading(true))
   axios
     .post("/api/task", { request })
     .then((response) => {
-      console.log("Задача создана")
+        alert("Задача создана")
       dispatch(addTask(response.data as Task))
     })
     .catch((error) => {
       alert(error)
     })
+    .finally(() => {
+      dispatch(setLoading(false))
+    })
 }
 
 export const callDeleteTask = (dispatch: Dispatch, taskId: number) => {
+  dispatch(setLoading(true))
   axios
     .delete(`/api/task/${taskId}`)
     .then((response) => {
-      console.log("Задача удалена")
+        alert("Задача удалена")
       const deleteTaskResponse: DeleteTaskResponse = response.data
       dispatch(removeTask(deleteTaskResponse))
     })
     .catch((error) => {
       alert(error)
+    })
+    .finally(() => {
+      dispatch(setLoading(false))
     })
 }
 
@@ -57,14 +65,18 @@ export const callUpdateTask = (
   dispatch: Dispatch,
   request: UpdateTaskRequest,
 ) => {
+  dispatch(setLoading(true))
   axios
     .patch("/api/task/", { request })
     .then((response) => {
-      console.log("Задача обновлена")
+        alert("Задача обновлена")
       const updateTaskResponse: UpdateTaskResponse = response.data
       dispatch(updateTask(updateTaskResponse))
     })
     .catch((error) => {
       alert(error)
+    })
+    .finally(() => {
+      dispatch(setLoading(false))
     })
 }

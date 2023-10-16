@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { RootState } from "./store"
 import {
   DeleteTaskResponse,
   Task,
   UpdateTaskResponse,
 } from "../interfaces/Task"
+import { createSelector } from "reselect"
 
 interface TasksState {
   tasks: Task[]
@@ -36,10 +36,8 @@ export const tasksSlice = createSlice({
     },
     updateTask: (state, action) => {
       const updateTaskResponse: UpdateTaskResponse = action.payload
-
-      const itemIndex = state.tasks.findIndex(
-        (item) => item.id === updateTaskResponse.id,
-      )
+      const taskId = updateTaskResponse.id
+      const itemIndex = state.tasks.findIndex((item) => item.id === taskId)
       if (itemIndex !== -1) {
         state.tasks[itemIndex] = {
           ...state.tasks[itemIndex],
@@ -53,7 +51,21 @@ export const tasksSlice = createSlice({
 export const { addTask, removeTask, setLoading, updateTask } =
   tasksSlice.actions
 
-export const selectTasks = (state: RootState) => state.tasks.tasks
-export const tasksIsLoading = (state: RootState) => state.tasks.isLoading
+const getTasks = (state) => state.tasks.tasks
+
+// Селектор для получения всех пользователей
+export const getAllTasks = createSelector([getTasks], (tasks) => {
+  return tasks
+})
+
+const getIsLoading = (state) => state.tasks.isLoading
+
+// Селектор для получения статуса загрузки
+export const getIsLoadingStatus = createSelector(
+  [getIsLoading],
+  (isLoading: boolean) => {
+    return isLoading
+  },
+)
 
 export default tasksSlice.reducer

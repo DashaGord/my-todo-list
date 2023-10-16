@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { BounceLoader } from "react-spinners";
 
 const SpinnerContainer = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Spinner: React.FC = () => {
   return (
     <SpinnerContainer>
       <div className="spinner">
-        <h1>Спиннер !!!</h1>
+          <BounceLoader color="#36D7B7" size={60} />
       </div>
     </SpinnerContainer>
   )

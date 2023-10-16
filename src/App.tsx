@@ -1,16 +1,25 @@
 import "./App.css"
 import { useEffect } from "react"
-import { tasksIsLoading } from "./app/tasksSlice"
+import { getIsLoadingStatus } from "./app/tasksSlice"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
 import TaskList from "./components/TaskList"
 import { TaskForm } from "./components/TaskForm"
 import Spinner from "./components/Spinner"
 import { makeServer } from "./mockServer"
 import { fetchTasks } from "./service/TaskService"
+import styled from 'styled-components';
+
+
+const StyledTaskContainer = styled.div`
+  width: 550px;
+  height: 550px;
+  //overflow: auto;
+`;
+
 
 function App() {
   const dispatch = useAppDispatch()
-  const isLoading = useAppSelector(tasksIsLoading)
+  const isLoading = useAppSelector(getIsLoadingStatus)
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -28,9 +37,9 @@ function App() {
         {isLoading ? (
           <Spinner />
         ) : (
-          <>
-            <TaskForm /> <TaskList />
-          </>
+            <StyledTaskContainer>
+              <TaskForm /> <TaskList />
+            </StyledTaskContainer>
         )}
       </header>
     </div>
