@@ -7,15 +7,15 @@ import { TaskForm } from "./components/TaskForm"
 import Spinner from "./components/Spinner"
 import { makeServer } from "./mockServer"
 import { fetchTasks } from "./service/TaskService"
-import styled from 'styled-components';
-
+import styled from "styled-components"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const StyledTaskContainer = styled.div`
   width: 550px;
   height: 550px;
   //overflow: auto;
-`;
-
+`
 
 function App() {
   const dispatch = useAppDispatch()
@@ -34,12 +34,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <ToastContainer />
         {isLoading ? (
           <Spinner />
         ) : (
-            <StyledTaskContainer>
-              <TaskForm /> <TaskList />
-            </StyledTaskContainer>
+          <StyledTaskContainer>
+             <TaskForm /> <TaskList />
+          </StyledTaskContainer>
         )}
       </header>
     </div>

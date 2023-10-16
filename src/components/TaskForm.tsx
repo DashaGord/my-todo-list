@@ -8,19 +8,22 @@ import {callCreateTask} from "../service/TaskService";
 const Container = styled.div`
   display: flex;
   width: 100%;
+  margin-bottom: 5px;
 `;
 
 const StyledInput = styled.input`
-  width: 70%;
+  width: 80%;
   padding: 10px;
   border: 1px solid #ccc;
+  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.1);
+  border-radius: inherit;
 `;
 
 const StyledButton = styled.button`
-  width: 30%;
+  width: 20%;
   background-color: deepskyblue;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border: none;
   cursor: pointer;
 `;

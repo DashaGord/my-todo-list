@@ -8,6 +8,7 @@ import {
 } from "../interfaces/Task"
 import { Dispatch } from "redux"
 import { addTask, removeTask, setLoading, updateTask } from "../app/tasksSlice"
+import { toast } from "react-toastify"
 
 export const fetchTasks = (dispatch: Dispatch) => {
   dispatch(setLoading(true))
@@ -33,11 +34,11 @@ export const callCreateTask = (
   axios
     .post("/api/task", { request })
     .then((response) => {
-        alert("Задача создана")
+        toast.success('Задача создана!', { autoClose: 3000 });
       dispatch(addTask(response.data as Task))
     })
-    .catch((error) => {
-      alert(error)
+    .catch(() => {
+      toast.error('Задача не создана!', { autoClose: 3000 });
     })
     .finally(() => {
       dispatch(setLoading(false))
@@ -49,12 +50,12 @@ export const callDeleteTask = (dispatch: Dispatch, taskId: number) => {
   axios
     .delete(`/api/task/${taskId}`)
     .then((response) => {
-        alert("Задача удалена")
+      toast.success('Задача удалена!', { autoClose: 3000 });
       const deleteTaskResponse: DeleteTaskResponse = response.data
       dispatch(removeTask(deleteTaskResponse))
     })
-    .catch((error) => {
-      alert(error)
+    .catch(() => {
+      toast.error('Задача не удалена!', { autoClose: 3000 });
     })
     .finally(() => {
       dispatch(setLoading(false))
@@ -69,12 +70,12 @@ export const callUpdateTask = (
   axios
     .patch("/api/task/", { request })
     .then((response) => {
-        alert("Задача обновлена")
+      toast.success('Задача обновлена!', { autoClose: 3000 });
       const updateTaskResponse: UpdateTaskResponse = response.data
       dispatch(updateTask(updateTaskResponse))
     })
-    .catch((error) => {
-      alert(error)
+    .catch(() => {
+      toast.error('Задача не обновлена!', { autoClose: 3000 });
     })
     .finally(() => {
       dispatch(setLoading(false))

@@ -8,39 +8,42 @@ interface TaskItemProps {
     onFinishTask: () => void
 }
 
-
-const TaskListItem = styled.li`
+const TaskLi = styled.li`
   display: flex;
-  justify-content: space-around;
   width: 100%;
+  margin-bottom: 5px;
+  height: 100%;
   align-items: center;
-  margin-bottom: 8px;
-  //padding: 8px;
 `;
 
-const TaskContainer = styled.div`
-  display: inline-block; /* Добавляем эту строку */
-  align-items: center; /* Добавляем эту строку */
-  width: 90%;
+const TaskListItem = styled.div<{ finished: boolean }>`
+  background-color: ${(props) => (props.finished ? "lightgreen" : "#f1f0f0")};
+  text-decoration: ${(props) => (props.finished ? "line-through" : "none")};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid ${(props) => (props.finished ? "#74ce74" : "#ccc")};;
+  margin: 2px 0px;
+  width: 95%;
+  height: 100%;
 `;
 
 const TaskButton = styled.button`
-  background-color: red;
+  background-color: #dc0909;
   color: white;
   border: none;
-  padding: 8.5px 12px;
   cursor: pointer;
-  margin-left: -15px;
+  width: 5%;
+  font-size: 9px;
+  font-weight: bold;
+  height: 30px;
 `;
 
-const TaskSpan = styled.span<{ finished: boolean }>`
-  background-color: ${(props) => (props.finished ? "lightgreen" : "#f1f0f0")};
-  text-decoration: ${(props) => (props.finished ? "line-through" : "none")};
-  display: inline-block;
-  width: 100%;
-  padding-left: 7px;
+const TaskSpan = styled.span`
+  padding: 5px;
   text-align: left;
   word-break: break-word;
+  font-size: 14px;
 `;
 
 
@@ -50,14 +53,14 @@ const TaskItem: React.FC<TaskItemProps> = ({
                                                onFinishTask,
                                            }) => {
     return (
-        <TaskListItem>
-            <TaskContainer>
-                <TaskSpan finished={task.finished} onClick={onFinishTask}>
-                    {task.title}
-                </TaskSpan>
-            </TaskContainer>
+        <TaskLi>
+            <TaskListItem finished={task.finished} onClick={onFinishTask}>
+                    <TaskSpan >
+                        {task.title}
+                    </TaskSpan>
+            </TaskListItem>
             <TaskButton onClick={onDeleteTask}>X</TaskButton>
-        </TaskListItem>
+        </TaskLi>
     )
 }
 

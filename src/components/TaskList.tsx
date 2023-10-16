@@ -4,13 +4,20 @@ import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { getAllTasks } from "../app/tasksSlice"
 import { callDeleteTask, callUpdateTask } from "../service/TaskService"
 import { Task } from "../interfaces/Task"
+import styled from "styled-components"
+
+const TaskListUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
 
 export function TaskList() {
   const dispatch = useAppDispatch()
   const tasks = useAppSelector(getAllTasks)
 
   return (
-    <ul style={{ listStyle: "none", padding: 0 }}>
+    <TaskListUl>
       {tasks.map((task: Task) => (
         <TaskItem
           key={task.id}
@@ -23,7 +30,7 @@ export function TaskList() {
           }
         />
       ))}
-    </ul>
+    </TaskListUl>
   )
 }
 
