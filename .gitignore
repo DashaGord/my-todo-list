@@ -30,3 +30,5 @@ build
 *.local
 cache
 .idea
+
+package-lock.json

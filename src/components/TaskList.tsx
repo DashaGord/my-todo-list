@@ -10,7 +10,7 @@ const TaskListUl = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-`;
+`
 
 export function TaskList() {
   const dispatch = useAppDispatch()

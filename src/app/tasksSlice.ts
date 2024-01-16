@@ -5,6 +5,7 @@ import {
   UpdateTaskResponse,
 } from "../interfaces/Task"
 import { createSelector } from "reselect"
+import {RootState} from "./store";
 
 interface TasksState {
   tasks: Task[]
@@ -14,6 +15,12 @@ interface TasksState {
 const initialState: TasksState = {
   tasks: [],
   isLoading: false,
+}
+
+interface State {
+  tasks: {
+    isLoading: boolean;
+  };
 }
 
 export const tasksSlice = createSlice({
@@ -26,7 +33,7 @@ export const tasksSlice = createSlice({
     },
     removeTask: (state, action) => {
       const taskId = (action.payload as DeleteTaskResponse).id
-      const itemIndex = state.tasks.findIndex((item) => item.id == taskId)
+      const itemIndex = state.tasks.findIndex((item) => item.id === taskId)
       if (itemIndex !== -1) {
         state.tasks.splice(itemIndex, 1)
       }
@@ -51,14 +58,14 @@ export const tasksSlice = createSlice({
 export const { addTask, removeTask, setLoading, updateTask } =
   tasksSlice.actions
 
-const getTasks = (state) => state.tasks.tasks
+const getTasks = (state: RootState) => state.tasks.tasks
 
 // Селектор для получения всех пользователей
 export const getAllTasks = createSelector([getTasks], (tasks) => {
   return tasks
 })
 
-const getIsLoading = (state) => state.tasks.isLoading
+const getIsLoading = (state: RootState) => state.tasks.isLoading
 
 // Селектор для получения статуса загрузки
 export const getIsLoadingStatus = createSelector(

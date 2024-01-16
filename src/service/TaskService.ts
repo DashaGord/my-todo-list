@@ -34,11 +34,11 @@ export const callCreateTask = (
   axios
     .post("/api/task", { request })
     .then((response) => {
-        toast.success('Задача создана!', { autoClose: 3000 });
+      toast.success("Задача создана!", { autoClose: 3000 })
       dispatch(addTask(response.data as Task))
     })
     .catch(() => {
-      toast.error('Задача не создана!', { autoClose: 3000 });
+      toast.error("Задача не создана!", { autoClose: 3000 })
     })
     .finally(() => {
       dispatch(setLoading(false))
@@ -50,12 +50,12 @@ export const callDeleteTask = (dispatch: Dispatch, taskId: number) => {
   axios
     .delete(`/api/task/${taskId}`)
     .then((response) => {
-      toast.success('Задача удалена!', { autoClose: 3000 });
+      toast.success("Задача удалена!", { autoClose: 3000 })
       const deleteTaskResponse: DeleteTaskResponse = response.data
       dispatch(removeTask(deleteTaskResponse))
     })
     .catch(() => {
-      toast.error('Задача не удалена!', { autoClose: 3000 });
+      toast.error("Задача не удалена!", { autoClose: 3000 })
     })
     .finally(() => {
       dispatch(setLoading(false))
@@ -70,12 +70,12 @@ export const callUpdateTask = (
   axios
     .patch("/api/task/", { request })
     .then((response) => {
-      toast.success('Задача обновлена!', { autoClose: 3000 });
+      toast.success("Задача обновлена!", { autoClose: 3000 })
       const updateTaskResponse: UpdateTaskResponse = response.data
       dispatch(updateTask(updateTaskResponse))
     })
     .catch(() => {
-      toast.error('Задача не обновлена!', { autoClose: 3000 });
+      toast.error("Задача не обновлена!", { autoClose: 3000 })
     })
     .finally(() => {
       dispatch(setLoading(false))
