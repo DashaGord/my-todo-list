@@ -1,0 +1,10 @@
+INSERT INTO tasks (id, title, finished) VALUES (1, 'Task 1', 0);
+INSERT INTO tasks (id, title, finished) VALUES (2, 'Task 2', 0);
+INSERT INTO tasks (id, title, finished) VALUES (3, 'Task 3', 0);
+INSERT INTO tasks (id, title, finished) VALUES (4, 'Task 4', 0);
+INSERT INTO tasks (id, title, finished) VALUES (5, 'Task 5', 0);
+INSERT INTO tasks (id, title, finished) VALUES (6, 'Task 6', 0);
+INSERT INTO tasks (id, title, finished) VALUES (7, 'Task 7', 0);
+INSERT INTO tasks (id, title, finished) VALUES (8, 'Task 8', 0);
+INSERT INTO tasks (id, title, finished) VALUES (9, 'Task 9', 0);
+INSERT INTO tasks (id, title, finished) VALUES (10, 'Task 10', 0);

@@ -10,9 +10,14 @@ import { Dispatch } from "redux"
 import { addTask, removeTask, setLoading, updateTask } from "../app/tasksSlice"
 import { toast } from "react-toastify"
 
+// Создайте экземпляр axios с предопределенной конфигурацией
+const api = axios.create({
+  baseURL: "http://localhost:3000",
+})
+
 export const fetchTasks = (dispatch: Dispatch) => {
   dispatch(setLoading(true))
-  axios
+  api
     .get("/api/task")
     .then((response) => {
       const data: Task[] = response.data
@@ -31,7 +36,7 @@ export const callCreateTask = (
   request: CreateTaskRequest,
 ) => {
   dispatch(setLoading(true))
-  axios
+  api
     .post("/api/task", { request })
     .then((response) => {
       toast.success("Задача создана!", { autoClose: 3000 })
@@ -47,7 +52,7 @@ export const callCreateTask = (
 
 export const callDeleteTask = (dispatch: Dispatch, taskId: number) => {
   dispatch(setLoading(true))
-  axios
+  api
     .delete(`/api/task/${taskId}`)
     .then((response) => {
       toast.success("Задача удалена!", { autoClose: 3000 })
@@ -67,7 +72,7 @@ export const callUpdateTask = (
   request: UpdateTaskRequest,
 ) => {
   dispatch(setLoading(true))
-  axios
+  api
     .patch("/api/task/", { request })
     .then((response) => {
       toast.success("Задача обновлена!", { autoClose: 3000 })
