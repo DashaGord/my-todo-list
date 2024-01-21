@@ -9,12 +9,10 @@ import {
 import { Dispatch } from "redux"
 import { addTask, removeTask, setLoading, updateTask } from "../app/tasksSlice"
 import { toast } from "react-toastify"
-
-// Создайте экземпляр axios с предопределенной конфигурацией
+// экземпляр axios с предопределенной конфигурацией
 const api = axios.create({
   baseURL: "http://localhost:3000",
 })
-
 export const fetchTasks = (dispatch: Dispatch) => {
   dispatch(setLoading(true))
   api
